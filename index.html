@@ -12,6 +12,21 @@
         h1 {
             text-align: center;
         }
+
+        .unsetA {
+            color: #212529;
+            font-size: 1rem;
+            font-weight: 400;
+        }
+
+        .wrongA {
+            color: red;
+            font-weight: bold;
+        }
+
+        .rightA {
+            color: green;
+        }
     </style>
 </head>
 
@@ -25,50 +40,56 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="form-group">
-                                <label for="answerQ1">Q1. What is 2+2?</label>
+                                <label for="answerQ1" class="unsetA">Q1. What is 2+2?</label>
                                 <input type="number" class="form-control" id="answerQ1" placeholder="Answer to Q1"><i
-                                    class="fa fa-lg fa-thumbs-up d-none" style="color: green;" title="right"></i><i
-                                    class="fa fa-lg fa-thumbs-down d-none" style="color: red;" title="wrong"></i>
+                                    class="fa fa-lg fa-thumbs-up d-none" aria-label="right answer" style="color: green;"
+                                    title="right"></i><i class="fa fa-lg fa-thumbs-down d-none"
+                                    aria-label="wrong answer" style="color: red;" title="wrong"></i>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12">
                             <div class="form-group">
-                                <label for="answerQ2">Q2. How many months do we have in a year?</label>
+                                <label for="answerQ2" class="unsetA">Q2. How many months do we have in a year?</label>
                                 <input type="number" class="form-control" id="answerQ2" placeholder="Answer to Q2"><i
-                                    class="fa fa-lg fa-thumbs-up d-none" style="color: green;" title="right"></i><i
-                                    class="fa fa-lg fa-thumbs-down d-none" style="color: red;" title="wrong"></i>
+                                    class="fa fa-lg fa-thumbs-up d-none" aria-label="right answer" style="color: green;"
+                                    title="right"></i><i class="fa fa-lg fa-thumbs-down d-none"
+                                    aria-label="wrong answer" style="color: red;" title="wrong"></i>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12">
                             <div class="form-group">
-                                <label for="answerQ3">Q3. How many days do we have in a week?</label>
+                                <label for="answerQ3" class="unsetA">Q3. How many days do we have in a week?</label>
                                 <input type="number" class="form-control" id="answerQ3" placeholder="Answer to Q3"><i
-                                    class="fa fa-lg fa-thumbs-up d-none" style="color: green;" title="right"></i><i
-                                    class="fa fa-lg fa-thumbs-down d-none" style="color: red;" title="wrong"></i>
+                                    class="fa fa-lg fa-thumbs-up d-none" aria-label="right answer" style="color: green;"
+                                    title="right"></i><i class="fa fa-lg fa-thumbs-down d-none"
+                                    aria-label="wrong answer" style="color: red;" title="wrong"></i>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12">
                             <div class="form-group">
-                                <label for="answerQ4">Q4. Which day comes after Friday?</label>
+                                <label for="answerQ4" class="unsetA">Q4. Which day comes after Friday?</label>
                                 <input type="text" class="form-control" id="answerQ4" placeholder="Answer to Q4"><i
-                                    class="fa fa-lg fa-thumbs-up d-none" style="color: green;" title="right"></i><i
-                                    class="fa fa-lg fa-thumbs-down d-none" style="color: red;" title="wrong"></i>
+                                    class="fa fa-lg fa-thumbs-up d-none" aria-label="right answer" style="color: green;"
+                                    title="right"></i><i class="fa fa-lg fa-thumbs-down d-none"
+                                    aria-label="wrong answer" style="color: red;" title="wrong"></i>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12">
                             <div class="form-group">
-                                <label for="answerQ5">Q5. We use our eyes to — see, hear, feel, eat?</label>
+                                <label for="answerQ5" class="unsetA">Q5. We use our eyes to — see, hear, feel,
+                                    eat?</label>
                                 <input type="text" class="form-control" id="answerQ5" placeholder="Answer to Q5"><i
-                                    class="fa fa-lg fa-thumbs-up d-none" style="color: green;" title="right"></i><i
-                                    class="fa fa-lg fa-thumbs-down d-none" style="color: red;" title="wrong"></i>
+                                    class="fa fa-lg fa-thumbs-up d-none" aria-label="right answer" style="color: green;"
+                                    title="right"></i><i class="fa fa-lg fa-thumbs-down d-none"
+                                    aria-label="wrong answer" style="color: red;" title="wrong"></i>
                             </div>
                         </div>
                     </div>
@@ -94,6 +115,58 @@
                 integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
                 crossorigin="anonymous"></script>
             <script>
+
+                function getAnswer(field) {
+                    let answer = document.getElementById(field);
+                    return answer.value;
+                }
+
+                function checkAnswers() {
+                    let answers = [4, 12, 7, "saturday", "see"];
+
+                    for (let i = 1; i < 6; i++) {
+                        let elementId = "answerQ" + i;
+                        let answer = getAnswer(elementId);
+                        gradeAnswer(elementId, String(answer).toLowerCase() == answers[i - 1]);
+                    }
+                }
+
+                function gradeAnswer(elementId, isRight) {
+
+                    let answer = document.getElementById(elementId);
+
+                    if (isRight) {
+                        //right label
+                        answer.parentNode.querySelector('label').className = 'rightA';
+
+                        //right font awesome icon
+                        answer.parentNode.querySelector('.fa-thumbs-up').className = 'fa fa-lg fa-thumbs-up';
+                        answer.parentNode.querySelector('.fa-thumbs-down').className = 'fa fa-lg fa-thumbs-down d-none';
+                    }
+                    else {
+                        //wrong label
+                        answer.parentNode.querySelector('label').className = 'wrongA';
+
+                        //wrong font awesome icon
+                        answer.parentNode.querySelector('.fa-thumbs-up').className = 'fa fa-lg fa-thumbs-up d-none';
+                        answer.parentNode.querySelector('.fa-thumbs-down').className = 'fa fa-lg fa-thumbs-down';
+                    }
+                }
+
+                function resetQuiz() {
+                    for (let i = 1; i < 6; i++) {
+                        //reset input
+                        let answer = document.getElementById("answerQ" + i);
+                        answer.value = null;
+
+                        //reset label
+                        answer.parentNode.querySelector('label').className = 'unsetA';
+
+                        //reset font awesome icons
+                        answer.parentNode.querySelector('.fa-thumbs-up').className = 'fa fa-lg fa-thumbs-up d-none';
+                        answer.parentNode.querySelector('.fa-thumbs-down').className = 'fa fa-lg fa-thumbs-down d-none';
+                    }
+                }
             </script>
         </form>
 </body>
